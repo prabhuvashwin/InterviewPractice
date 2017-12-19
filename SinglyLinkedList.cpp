@@ -219,29 +219,38 @@ public:
         
         cout << "Middle element " << slow->data << " deleted." << endl;
     }
+    
+    void RemoveDuplicates() {
+        Node *curr = head;
+        Node *next = head->next;
+        
+        while (next != nullptr) {
+            if (curr->data == next->data) {
+                curr->next = next->next;
+                next = next->next;
+            } else {
+                curr = next;
+                next = next->next;
+            }
+        }
+    }
 };
 
 int main(int argc, const char * argv[]) {
     
     LinkedList *ll = new LinkedList();
-    ll->InsertNodeAtEnd(1);
     ll->InsertNodeAtEnd(2);
-    ll->InsertNodeAtEnd(3);
-    ll->InsertNodeAtEnd(4);
-    ll->InsertNodeAtEnd(5);
-    ll->InsertNodeAtEnd(6);
-    ll->InsertNodeAtStart(7);
-    ll->InsertNodeAtStart(8);
-    ll->InsertNodeAtEnd(9);
+    ll->InsertNodeAtEnd(2);
+    ll->InsertNodeAtEnd(2);
+    ll->InsertNodeAtEnd(2);
+    ll->InsertNodeAtEnd(2);
+    ll->InsertNodeAtEnd(2);
+    ll->InsertNodeAtEnd(2);
     ll->InsertNodeAtEnd(10);
     ll->Display();
     
-    cout << ll->GetMiddleElement() << endl;
-    ll->DeleteMiddleElement();
-    ll->Display();
-    ll->DeleteMiddleElement();
+    ll->RemoveDuplicates();
     ll->Display();
     
     return 0;
 }
-
