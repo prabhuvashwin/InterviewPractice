@@ -162,6 +162,63 @@ public:
         
         return node;
     }
+    
+    int GetNodeValueAtN(Node *node, int posFromTail) {
+        int i = 0;
+        Node *curr = node;
+        Node *res = node;
+        while (curr != nullptr) {
+            curr = curr->next;
+            if (i++ > posFromTail) {
+                res = res->next;
+            }
+        }
+        return res->data;
+    }
+    
+    bool HasCycle() {
+        Node *curr = head;
+        Node *next = head;
+        
+        while (next != nullptr && next->next != nullptr) {
+            curr = curr->next;
+            next = next->next->next;
+            if (curr == next)
+                return 1;
+        }
+        return 0;
+    }
+    
+    int GetMiddleElement() {
+        Node *slow = head;
+        Node *fast = head;
+        
+        while (fast != nullptr && fast->next != nullptr) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        
+        return slow->data;
+    }
+    
+    void DeleteMiddleElement() {
+        Node *prev = head;
+        Node *slow = head;
+        Node *fast = head;
+        int count = 0;
+        
+        while (fast != nullptr && fast->next != nullptr) {
+            if (count > 0)
+                prev = prev->next;
+            slow = slow->next;
+            fast = fast->next->next;
+            count++;
+        }
+        
+        prev->next = slow->next;
+        
+        cout << "Middle element " << slow->data << " deleted." << endl;
+    }
 };
 
 int main(int argc, const char * argv[]) {
@@ -173,12 +230,18 @@ int main(int argc, const char * argv[]) {
     ll->InsertNodeAtEnd(4);
     ll->InsertNodeAtEnd(5);
     ll->InsertNodeAtEnd(6);
-    ll->Display();
     ll->InsertNodeAtStart(7);
     ll->InsertNodeAtStart(8);
+    ll->InsertNodeAtEnd(9);
+    ll->InsertNodeAtEnd(10);
     ll->Display();
-    ll->DisplayInReverse(ll->GetHead());
-    ll->ReverseLinkedList(ll->GetHead());
+    
+    cout << ll->GetMiddleElement() << endl;
+    ll->DeleteMiddleElement();
     ll->Display();
+    ll->DeleteMiddleElement();
+    ll->Display();
+    
     return 0;
 }
+
